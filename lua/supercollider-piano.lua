@@ -3,6 +3,7 @@ local M = {}
 -- Name of synth being played by key map
 vim.g.sc_piano_synth = vim.g.sc_piano_synth or 'default'
 vim.g.sc_piano_dur = vim.g.sc_piano_dur or 0.5
+vim.g.sc_piano_use_default_mappings = vim.g.sc_piano_use_default_mappings or true
 
 -- Default mapping
 -- Keymap, midi note number
@@ -71,9 +72,11 @@ end
 
 -- Call setup function, used in init file
 -- Takes an optional table of left hand side mappings and corresponding midi notes (see above)
-function M.setup(keys_midinotes)
-	keys_for_scsynth = keys_midinotes or keys_for_scsynth
-	M.remap(vim.g.sc_piano_synth)
+function M.setup()
+
+	if vim.g.sc_piano_use_default_mappings then
+		M.remap(vim.g.sc_piano_synth)
+	end
 
 	vim.cmd("command! -nargs=? SCPiano lua require('supercollider-piano').play_default(<args>)")
 	vim.cmd("command! -nargs=1 SCPianoSynthSet lua require('supercollider-piano').remap(\'<args>\')")

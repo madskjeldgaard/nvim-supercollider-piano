@@ -59,3 +59,5 @@ Set the default synth to use for this
 `vim.g.sc_piano_synth = 'supersaw'`
 
 `vim.g.sc_piano_dur = 0.5`
+
+`vim.g.sc_piano_use_default_mappings = true`
