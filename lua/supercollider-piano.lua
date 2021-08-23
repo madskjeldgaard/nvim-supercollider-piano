@@ -50,7 +50,7 @@ function M.map_key_to_midinote(synthName, lhs, midinote, noteDur)
 
 	-- The thing that will be executed by said key:
 	local rhs = string.format("<cmd> lua require'scnvim'.send_silent(\"%s\")<cr>", sc_code)
-	-- print(rhs)
+
 	vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, opts)
 
 end
@@ -62,7 +62,7 @@ function M.remap(newSynth)
 	end
 
 	local synth = vim.g.sc_piano_synth
-	print("Setting new SuperCollider piano synth to ".. synth)
+	-- print("Setting new SuperCollider piano synth to ".. synth)
 
 	for keymap, midinote in pairs(keys_for_scsynth) do
 		-- print(synth, keymap, midinote, vim.g.sc_piano_dur)
