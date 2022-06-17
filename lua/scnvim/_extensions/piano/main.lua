@@ -1,28 +1,24 @@
 local M = {}
 
--- Name of synth being played by key map
-vim.g.sc_piano_synth = vim.g.sc_piano_synth or 'default'
-vim.g.sc_piano_dur = vim.g.sc_piano_dur or 0.5
-vim.g.sc_piano_use_default_mappings = vim.g.sc_piano_use_default_mappings or true
-
+-- TODO
 -- Default mapping
 -- Keymap, midi note number
-local keys_for_scsynth = {
-	["<A-1>"] = 58,
-	["<A-2>"] = 59,
-	["<A-3>"] = 60,
-	["<A-4>"] = 61,
-	["<A-5>"] = 62,
-	["<A-6>"] = 63,
-	["<A-7>"] = 64,
-	["<A-8>"] = 65,
-	["<A-9>"] = 66,
-	["<A-0>"] = 67,
-}
+-- local keys_for_scsynth = {
+-- 	["<A-1>"] = 58,
+-- 	["<A-2>"] = 59,
+-- 	["<A-3>"] = 60,
+-- 	["<A-4>"] = 61,
+-- 	["<A-5>"] = 62,
+-- 	["<A-6>"] = 63,
+-- 	["<A-7>"] = 64,
+-- 	["<A-8>"] = 65,
+-- 	["<A-9>"] = 66,
+-- 	["<A-0>"] = 67,
+-- }
 
 -- SC code to be evaluated
 function M.sc_code_play_synth(synthName, midinote, noteDur)
-	local noteOnTime = noteDur or vim.g.sc_piano_dur or 0.5
+	local noteOnTime = noteDur or M.note_dur
 	synthName = synthName or 'default'
 	midinote = midinote or 58
 	local sc_code = string.format(
@@ -34,9 +30,10 @@ end
 
 -- Plays the synth set by the user
 -- optional midi note to play
-function M.play_default(midinote)
+function M.play_default(midinote, noteDur)
+	noteDur = noteDur or 0.5
 	midinote = midinote or 58
-	local sc_code = M.sc_code_play_synth(vim.g.sc_piano_synth, midinote)
+	local sc_code = M.sc_code_play_synth(M.default_synth, midinote, noteDur)
 	require'scnvim'.send_silent(sc_code)
 end
 
@@ -58,15 +55,14 @@ end
 -- (re)Map all keys / synths
 function M.remap(newSynth)
 	if newSynth ~= nil then
-		vim.g.sc_piano_synth = newSynth
+		M.default_synth = newSynth
 	end
 
-	local synth = vim.g.sc_piano_synth
+	local synth = M.default_synth
 	-- print("Setting new SuperCollider piano synth to ".. synth)
 
 	for keymap, midinote in pairs(keys_for_scsynth) do
-		-- print(synth, keymap, midinote, vim.g.sc_piano_dur)
-		M.map_key_to_midinote(synth, keymap, midinote, vim.g.sc_piano_dur)
+		M.map_key_to_midinote(synth, keymap, midinote, M.note_dur)
 	end
 end
 
@@ -74,12 +70,10 @@ end
 -- Takes an optional table of left hand side mappings and corresponding midi notes (see above)
 function M.setup()
 
-	if vim.g.sc_piano_use_default_mappings then
-		M.remap(vim.g.sc_piano_synth)
-	end
-
-	vim.cmd("command! -nargs=? SCPiano lua require('supercollider-piano').play_default(<args>)")
-	vim.cmd("command! -nargs=1 SCPianoSynthSet lua require('supercollider-piano').remap(\'<args>\')")
+	-- TODO
+	-- if vim.g.sc_piano_use_default_mappings then
+	-- 	M.remap(vim.g.sc_piano_synth)
+	-- end
 
 end
 
