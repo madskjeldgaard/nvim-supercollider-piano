@@ -66,6 +66,33 @@ Now, the synth being used is `\mycoolsynth`:
 :SCNvimExt piano.play 33
 ```
 
+You can use piano.midi to play arbitrary MIDIdefs.<br />
+Arguments are: midinote duration channel.
+
+```vim
+:SCNvimExt piano.midi 48 0.5 0
+```
+
+Example mapping of F5
+
+```vim
+vim.keymap.set("n", "<F5>", ":SCNvimExt piano.midi 48 0.5 0<CR>")
+
+```
+
+Example MIDIdefs in SuperCollider
+
+```supercollider
+MIDIdef.noteOn(\myNoteOn, {
+	|vel,num,chan|
+	("on " ++ [num,chan]).postln;
+});
+MIDIdef.noteOff(\myNoteOff, {
+	|vel,num,chan|
+	("off " ++ [num,chan]).postln;
+});
+```
+
 ## Configuration
 
 The extension will receive its own configuration as well as the user config. It
