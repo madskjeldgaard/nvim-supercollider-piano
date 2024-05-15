@@ -66,8 +66,7 @@ Now, the synth being used is `\mycoolsynth`:
 :SCNvimExt piano.play 33
 ```
 
-You can use piano.midi to play arbitrary MIDIdefs.
-
+You can use piano.midi to play arbitrary MIDIdefs.<br />
 Arguments are: midinote duration channel.
 
 ```vim
