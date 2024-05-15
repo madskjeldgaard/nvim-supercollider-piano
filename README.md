@@ -66,8 +66,8 @@ Now, the synth being used is `\mycoolsynth`:
 :SCNvimExt piano.play 33
 ```
 
-###Play midi events
-Arguments are: midinote duration channel
+You can use piano.midi to play arbitrary MIDIdefs.
+Arguments are: midinote duration channel.
 
 ```vim
 :SCNvimExt piano.midi 48 0.5 0
@@ -80,7 +80,7 @@ vim.keymap.set("n", "<F5>", ":SCNvimExt piano.midi 48 0.5 0<CR>")
 
 ```
 
-Then you can use arbitrary MIDIdefs in SuperCollider
+Example MIDIdefs in SuperCollider
 
 ```supercollider
 MIDIdef.noteOn(\myNoteOn, {
