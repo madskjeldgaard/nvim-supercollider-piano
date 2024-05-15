@@ -67,6 +67,7 @@ Now, the synth being used is `\mycoolsynth`:
 ```
 
 You can use piano.midi to play arbitrary MIDIdefs.
+
 Arguments are: midinote duration channel.
 
 ```vim
